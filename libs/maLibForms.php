@@ -125,7 +125,7 @@ function mkSelect($nomChampSelect, $tabData, $champValue, $champLabel, $selected
 function mkForm($action = "", $method = "get")
 {
     // Produit une balise de formulaire NB : penser à la balise fermante !!
-    echo "<form action=\"$action\" method=\"$method\" >\n";
+    echo "<form class=\"form-group\" action=\"$action\" method=\"$method\" >\n";
 }
 
 function endForm()
@@ -133,11 +133,16 @@ function endForm()
     // produit la balise fermante
     echo "</form>\n";
 }
+function mkLabel($labelName, $for = "")
+{
+    // Produit un champ formulaire
+    echo '<label for="' . $for . '"/>' . $labelName . '</label>';
+}
 
 function mkInput($type, $name, $value = "")
 {
     // Produit un champ formulaire
-    echo "<input type=\"$type\" name=\"$name\" value=\"$value\"/>\n";
+    echo "<input class=\"form-control\" type=\"$type\" name=\"$name\" id=\"$name\" value=\"$value\"/>\n";
 }
 
 function mkRadioCb($type, $name, $value, $checked = false)

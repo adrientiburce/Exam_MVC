@@ -16,7 +16,7 @@ $title = "Conversations";
 
 ob_start(); ?>
 
-<h1 class="text-center text-primary">Conversations du site</h1>
+<h1 class="text-center display-3 text-secondary"><?= $title ?></h1>
 
 <h2 class="text-secondary">Liste des conversations actives</h2>
 
@@ -68,13 +68,15 @@ endForm();
 <?php
 
 mkForm("controleur.php");
+echo '<div class="form-group">';
+mkLabel("Thème de la conversation : ","theme" );
 mkInput("text", "theme"); ?>
+</div>
 <button class="btn btn-sm btn-success" type="submit" name="action" value="create_conv">
     Créer
 </button>
-<?php
-endForm();
-?>
+<?php endForm();  ?>
+
 
 <?php $content = ob_get_clean();
 

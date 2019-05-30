@@ -14,9 +14,7 @@ $title = "Accueil";
 
 
 <div id="" xmlns="http://www.w3.org/1999/html">
-
-
-    <h1 class="text-center text-primary">Accueil</h1>
+    <h1 class="text-center display-3 text-secondary"><?= $title ?></h1>
 
     <div class="alert alert-primary text-center">
        <p>Un site réalisé dans le cadre de l'électif Tech Web 2.0 </p>
