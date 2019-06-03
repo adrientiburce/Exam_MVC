@@ -164,4 +164,24 @@ function getConversation($idConv)
     else return $listConversations[0];
 }
 
-?>
+function parrainerAmi($pseudo, $email_ami){
+    $SQL = "INSERT INTO parrainage(pseudo_parrain, email_ami)";
+    $SQL .= " VALUES('$pseudo', '$email_ami')";
+    SQLInsert($SQL);
+}
+
+function verifParrainBdd($pseudo_parrain, $email)
+{
+    // Vérifie le pseudo du parrain rentré par l'invité
+    // renvoie faux si aucun parrain correspondant
+    // renvoie le pseudo du parrain si succès
+    $SQL = "SELECT pseudo_parrain FROM parrainage WHERE pseudo_parrain='$pseudo_parrain' AND email_ami='$email'";
+    return SQLGetChamp($SQL);
+}
+
+function ajouteUser($pseudo, $passe, $color){
+    // nouvel utilisatuer non blacklisté et non admin
+    $SQL = "INSERT INTO users(pseudo, passe, blacklist, admin, couleur) VALUE('$pseudo', '$passe', 0, 0, '$color')";
+    SQLInsert($SQL);
+}
+

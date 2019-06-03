@@ -13,9 +13,9 @@ if ($action = valider("action")) {
 
     echo "Action = '$action' <br />";
 
-    // ATTENTION : le codage des caractères peut poser PB
-    // si on utilise des actions comportant des accents...
-    // A EVITER si on ne maitrise pas ce type de problématiques
+// ATTENTION : le codage des caractères peut poser PB
+// si on utilise des actions comportant des accents...
+// A EVITER si on ne maitrise pas ce type de problématiques
 
     /* TODO: exercice 4
     // Dans tous les cas, il faut etre logue...
@@ -25,12 +25,10 @@ if ($action = valider("action")) {
         securiser("login");
     */
 
-    // Un paramètre action a été soumis, on fait le boulot...
+// Un paramètre action a été soumis, on fait le boulot...
     switch ($action) {
 
-        // Connexion //////////////////////////////////////////////////
-
-
+        // Connexion    //////////////////////////////////////////////////
         case 'connexion' :
             // On verifie la presence des champs login et passe
             $qs = "?view=login";
@@ -49,6 +47,8 @@ if ($action = valider("action")) {
             session_destroy();
             $qs = "?view=login";
             break;
+
+        // U S E R S     //////////////////////////////////////////////////
         case 'interdire' :
             if ($idUser = valider("idUser"))
                 interdireUtilisateur($idUser);
@@ -59,6 +59,8 @@ if ($action = valider("action")) {
                 autoriserUtilisateur($idUser);
             $qs = "?view=users&lastUserId=" . $idUser;
             break;
+
+        // C O N V     //////////////////////////////////////////////////
         case 'activer_conv' :
             if ($idConv = valider("idConv"))
                 reactiverConversation($idConv);
@@ -81,6 +83,8 @@ if ($action = valider("action")) {
             }
             $qs = "?view=conversations&lastConvId=" . $idConv;
             break;
+
+        // C H A T     //////////////////////////////////////////////////
         case 'Poster' :
             if ($idConv = valider("idConv"))
                 if ($contenu = valider("contenu"))
@@ -90,7 +94,35 @@ if ($action = valider("action")) {
             // On revient à la vue chat POUR CETTE CONVERSATION
             $qs = "?view=chat&idConv=$idConv";
             break;
-    }
+
+
+        // P A R R A I N A G E     ////////////////////////////////////
+        case 'parrainage' :
+            if ($email_ami = valider("email_ami")) {
+                if ($pseudo = valider("pseudo", "SESSION")) {
+                    parrainerAmi($pseudo, $email_ami);
+                }
+            }
+            $qs = "?view=parrainage";
+            break;
+
+        case 'verif_parrainage' :
+            $qs = "?view=parrainage";
+            // on verifie les infos de parrainage
+            if ($pseudo_parrain = valider("pseudo_parrain"))
+                if ($email = valider("email"))
+                    if ($pseudo_parrain == verifParrainBdd($pseudo_parrain, $email))
+                            // on inscrit le nouvel utilisateur
+                            if ($pseudo = valider("pseudo")) {
+                                if ($passe = valider("passe")) {
+                                    if ($color = valider("color")) {
+                                        ajouteUser($pseudo, $passe, $color);
+                                        $qs = "?view=accueil";
+                                    }
+                                }
+                            }
+                            break;
+                        }
 
 }
 
@@ -108,8 +140,6 @@ header("Location:" . $urlBase . $qs);
 ob_end_flush();
 
 ?>
-
-
 
 
 

@@ -36,6 +36,9 @@
                 <li class="nav-item <?php if ($view == "conversations") echo 'active'; ?>">
                     <a class="nav-link" href="index.php?view=conversations">Conversations</a>
                 </li>
+                <li class="nav-item <?php if ($view == "parrainage") echo 'active'; ?>">
+                    <a class="nav-link" href="index.php?view=parrainage">Parrainage</a>
+                </li>
                 <?php
                 // Si l'utilisateur n'est pas connecte, on affiche un lien de connexion
                 if (!valider("connecte", "SESSION")) { ?>
@@ -44,7 +47,6 @@
                     </li>
                 <?php } ?>
                 <?php
-                // Si l'utilisateur n'est pas connecte, on affiche un lien de connexion
                 if (valider("connecte", "SESSION")) { ?>
                     <li class="nav-item <?php if ($view == "logout") echo 'active'; ?>">
                         <a class="nav-link" href="controleur.php?action=logout">Déconexion</a>
