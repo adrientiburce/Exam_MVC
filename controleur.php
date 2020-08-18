@@ -50,30 +50,35 @@ if ($action = valider("action")) {
 
         // U S E R S     //////////////////////////////////////////////////
         case 'interdire' :
-            if ($idUser = valider("idUser"))
+            if ($idUser = valider("idUser")) {
                 interdireUtilisateur($idUser);
+            }
             $qs = "?view=users&lastUserId=" . $idUser;
             break;
         case 'autoriser' :
-            if ($idUser = valider("idUser"))
+            if ($idUser = valider("idUser")) {
                 autoriserUtilisateur($idUser);
+            }
             $qs = "?view=users&lastUserId=" . $idUser;
             break;
 
         // C O N V     //////////////////////////////////////////////////
         case 'activer_conv' :
-            if ($idConv = valider("idConv"))
+            if ($idConv = valider("idConv")) {
                 reactiverConversation($idConv);
+            }
             $qs = "?view=conversations&lastConvId=" . $idConv;
             break;
         case 'archiver_conv' :
-            if ($idConv = valider("idConv"))
+            if ($idConv = valider("idConv")) {
                 archiverConversation($idConv);
+            }
             $qs = "?view=conversations&lastConvId=" . $idConv;
             break;
         case 'supprimer_conv' :
-            if ($idConv = valider("idConv"))
+            if ($idConv = valider("idConv")) {
                 supprimerConversation($idConv);
+            }
             $qs = "?view=conversations&lastConvId=''";
             break;
         case 'create_conv' :
@@ -86,11 +91,13 @@ if ($action = valider("action")) {
 
         // C H A T     //////////////////////////////////////////////////
         case 'Poster' :
-            if ($idConv = valider("idConv"))
-                if ($contenu = valider("contenu"))
+            if ($idConv = valider("idConv")) {
+                if ($contenu = valider("contenu")) {
                     if ($idAuteur = valider("idUser", "SESSION")) {
                         enregistrerMessage($idConv, $idAuteur, $contenu);
                     }
+                }
+            }
             // On revient à la vue chat POUR CETTE CONVERSATION
             $qs = "?view=chat&idConv=$idConv";
             break;
@@ -109,22 +116,27 @@ if ($action = valider("action")) {
         case 'verif_parrainage' :
             $qs = "?view=parrainage";
             // on verifie les infos de parrainage
-            if ($pseudo_parrain = valider("pseudo_parrain"))
-                if ($email = valider("email"))
-                    if ($pseudo_parrain == verifParrainBdd($pseudo_parrain, $email))
-                            // on inscrit le nouvel utilisateur
-                            if ($pseudo = valider("pseudo")) {
-                                if ($passe = valider("passe")) {
-                                    if ($color = valider("color")) {
-                                        ajouteUser($pseudo, $passe, $color);
-                                        $qs = "?view=accueil";
-                                    }
+            if ($pseudo_parrain = valider("pseudo_parrain")) {
+                if ($email = valider("email")) {
+                    if ($pseudo_parrain == verifParrainBdd($pseudo_parrain, $email)) {
+                        // on inscrit le nouvel utilisateur
+                        if ($pseudo = valider("pseudo")) {
+                            if ($passe = valider("passe")) {
+                                if ($color = valider("color")) {
+                                    ajouteUser($pseudo, $passe, $color);
+                                    $qs = "?view=accueil";
                                 }
                             }
-                            break;
                         }
+                    } else {
+                        $qs .= "&verif=false";
+                    }
+                }
+            }
+            break;
 
-}
+    } // close switch
+} // close if 'valider'
 
 // On redirige toujours vers la page index, mais on ne connait pas le répertoire de base
 // On l'extrait donc du chemin du script courant : $_SERVER["PHP_SELF"]
@@ -138,13 +150,6 @@ header("Location:" . $urlBase . $qs);
 
 // On écrit seulement après cette entête
 ob_end_flush();
-
-?>
-
-
-
-
-
 
 
 

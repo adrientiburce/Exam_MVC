@@ -18,7 +18,7 @@ $title = "Accueil";
 
     <div class="alert alert-primary text-center">
        <p>Un site réalisé dans le cadre de l'électif Tech Web 2.0 </p>
-        <p>Sujet du TP : <a href="https://moodle1819.centralelille.fr/pluginfile.php/8148/mod_resource/content/0/Cas%20d%C3%A9tude%20TinyMVC.pdf">ici</a></p>
+<!--        <p>Sujet du TP : <a href="https://moodle1819.centralelille.fr/pluginfile.php/8148/mod_resource/content/0/Cas%20d%C3%A9tude%20TinyMVC.pdf">ici</a></p>-->
     </div>
     <div class="container jumbotron">
         Bienvenue dans notre site de messagerie instantanée !

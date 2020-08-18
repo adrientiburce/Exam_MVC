@@ -66,11 +66,10 @@
 
 <footer class="footer mt-auto py-3">
     <div class="container">
-        <p>Infos de Connexion</p>
         <?php
         // Si l'utilisateur est connecte, on affiche un lien de deconnexion
         if (valider("connecte", "SESSION")) {
-            echo "Utilisateur <b>$_SESSION[pseudo]</b> connecté depuis <b>$_SESSION[heureConnexion]</b> &nbsp; ";
+            echo "Utilisateur <b>$_SESSION[pseudo]</b> " .  ($_SESSION["isAdmin"] ? "(admin) " : "") . "connecté depuis <b>$_SESSION[heureConnexion]</b> &nbsp; ";
         } else {
             echo "Utilisateur déconnecté ";
         }

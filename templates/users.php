@@ -71,6 +71,11 @@ $users = listerUtilisateurs("bl");
     </tbody>
 </table>
 
+
+<!-- VUE ADMIN ONLY -->
+
+<?php if(valider("connecte", "SESSION") && $_SESSION["isAdmin"]) { ?>
+
 <h3 class="text-primary mt-2">Changement de statut des utilisateurs</h3>
 
 <form action="controleur.php">
@@ -97,6 +102,10 @@ $users = listerUtilisateurs("bl");
         Autoriser
     </button>
 </form>
+
+<?php
+}
+?>
 
 <?php $content = ob_get_clean();
 

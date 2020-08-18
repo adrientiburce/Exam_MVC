@@ -39,30 +39,7 @@ mkLiens($conversations, "theme", "id", "index.php?view=chat", "idConv");
 ?>
 
 <hr/>
-<h2 class="text-secondary mb-2">Gestion des conversations</h2>
 
-<?php
-
-$conversations = listerConversations(); // toutes
-$lastConvId = valider('lastConvId');
-
-
-mkForm("controleur.php");
-mkSelect("idConv", $conversations, "id", "theme", $lastConvId); ?>
-<button class="btn btn-sm btn-success" type="submit" name="action" value="activer_conv">
-    Activer
-</button>
-<button class="btn btn-sm btn-secondary" type="submit" name="action" value="archiver_conv">
-    Archiver
-</button>
-<button class="btn btn-sm btn-danger" type="submit" name="action" value="supprimer_conv"
-        onclick=" return confirm('Etes-vous sûr de supprimer cette conversation ?')">
-    Supprimer
-</button>
-<?php
-endForm();
-?>
-<hr/>
 <h2 class="text-secondary mb-2">Créer une conversation</h2>
 
 <?php
@@ -76,6 +53,38 @@ mkInput("text", "theme"); ?>
     Créer
 </button>
 <?php endForm();  ?>
+
+<hr/>
+
+<?php
+// ============ A D M I N ===============
+if(valider("connecte", "SESSION") && $_SESSION["isAdmin"]) { ?>
+
+    <h2 class="text-secondary mb-2">Gestion des conversations</h2>
+
+    <?php
+
+    $conversations = listerConversations(); // toutes
+    $lastConvId = valider('lastConvId');
+
+
+    mkForm("controleur.php");
+    mkSelect("idConv", $conversations, "id", "theme", $lastConvId); ?>
+    <button class="btn btn-sm btn-success" type="submit" name="action" value="activer_conv">
+        Activer
+    </button>
+    <button class="btn btn-sm btn-secondary" type="submit" name="action" value="archiver_conv">
+        Archiver
+    </button>
+    <button class="btn btn-sm btn-danger" type="submit" name="action" value="supprimer_conv"
+            onclick=" return confirm('Etes-vous sûr de supprimer cette conversation ?')">
+        Supprimer
+    </button>
+    <?php
+    endForm();
+
+}
+?>
 
 
 <?php $content = ob_get_clean();
